@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap');
+
+@layer utilities {
+  @variants responsive {
+      .masonry {
+          column-gap: 1rem;
+          column-count: 1;
+      }
+      .masonry-sm {
+          column-gap: 1rem;
+          column-count: 2;
+      }
+      .masonry-md {
+          column-gap: 1rem;
+          column-count: 4;
+      }
+    }
+  }
+
+@layer base {
+  * {
+    color: #FFF;
+  }
+
+  html {
+    font-family: Mukta, sans-serif;
+  }
+
+  body {
+    background-color: #000;
+    margin: 0 auto;
+    max-width: 1000px;
+    min-height: 100vh;
+  }
+}
