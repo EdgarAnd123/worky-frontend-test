@@ -3,23 +3,6 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap');
 
-@layer utilities {
-  @variants responsive {
-      .masonry {
-          column-gap: 1rem;
-          column-count: 1;
-      }
-      .masonry-sm {
-          column-gap: 1rem;
-          column-count: 2;
-      }
-      .masonry-md {
-          column-gap: 1rem;
-          column-count: 4;
-      }
-    }
-  }
-
 @layer base {
   * {
     color: #FFF;
@@ -35,4 +18,57 @@
     max-width: 1000px;
     min-height: 100vh;
   }
+
+  h4 {
+    font-size: 1.5rem;
+  }
 }
+
+@layer components {
+  .trendingGrid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(min-content, auto));
+    grid-auto-rows: 150px;
+    @apply gap-4;
+    @apply place-content-center;
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+      .masonry {
+        columns: 1;
+        column-gap: 1rem;
+        width: 300px;
+        margin: 0 auto;
+      }
+      .masonry-xs {
+        columns: 2 238px;
+        column-gap: 1rem;
+        width: 100%;
+      }
+      .masonry-sm {
+        columns: 3 238px;
+        column-gap: 1rem;
+        width: 100%;
+      }
+      .masonry-md {
+        columns: 4 238px;
+        column-gap: 1rem;
+        width: 100%;
+      }
+
+      .trendingGrid-xs {
+        grid-template-columns: repeat(2, minmax(min-content, auto));
+      }
+
+      .trendingGrid-sm {
+        grid-template-columns: repeat(3, minmax(min-content, auto));
+      }
+
+      .trendingGrid-md {
+        grid-template-columns: repeat(4, minmax(min-content, auto));
+      }
+    }
+  }
+

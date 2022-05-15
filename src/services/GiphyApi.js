@@ -5,7 +5,12 @@ export default {
   getGifsByTrending() {
     return axios.get(`http://${GIPHY_API}/trending?api_key=${API_KEY}&limit=4`)
   },
+
   getGifsBySearch(searchParam) {
-    return axios.get(`http://${GIPHY_API}/search?api_key=${API_KEY}&q=${searchParam}&limit=15`)
+    return axios.get(`http://${GIPHY_API}/search?api_key=${API_KEY}&q=${searchParam}&limit=5`)
+  },
+
+  getGifById(id) {
+    return axios.get(`http://${GIPHY_API}/${id}?api_key=${API_KEY}`)
   }
 }

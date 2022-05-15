@@ -11,7 +11,7 @@
     data() {
       return {
         searchInput: '',
-        timeout: null
+        timeOut: null
       }
     },
     methods: {
@@ -21,10 +21,9 @@
         GiphyService.searchForGifs(this.searchInput).then(
           (gifs) => {
             this.isLoading = false;
-
-            this.setSearchInLocalStorage();
             this.$emit('searchedGifs', { gifs, searchTerm: this.searchInput });
-            
+
+            this.saveSearchInLocalStorage();
           },
           (error) => {
             this.isLoading = false;
@@ -33,21 +32,25 @@
         )
       },
 
-      setSearchInLocalStorage() {
-        let searchesPerformed = [];
+      saveSearchInLocalStorage() {
+        const searchesPerformed = localStorage.getItem('my-searches');
 
-        if(!localStorage.getItem('previously-searched')?.search(this.searchInput)){
-          searchesPerformed.push(this.searchInput);
-          localStorage.setItem('previously-searched', JSON.stringify(searchesPerformed) );
+        if(searchesPerformed) {
+          const searches = JSON.parse(searchesPerformed);
+
+          searches.push(this.searchInput);
+          localStorage.setItem('my-searches', JSON.stringify(searches) );
+
+          return null;
         }
+
+        localStorage.setItem('my-searches', JSON.stringify([this.searchInput]) );
       },
 
       onInputHandler() {
-        clearTimeout(this.timeout);
+        clearTimeout(this.timeOut);
 
-        setTimeout(() => {
-          this.searchForGifs();
-        }, 1500);
+        this.timeOut = setTimeout(this.searchForGifs, 500);
       }
     }
   }

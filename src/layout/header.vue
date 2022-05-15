@@ -1,7 +1,7 @@
 <template>
-  <div class="header__container">
-    <Logo />  
-  </div>
+  <router-link to="/">
+    <Logo class="my-4"/>
+  </router-link>
 </template>
 
 <script>
@@ -15,9 +15,3 @@
   };
 
 </script>
-
-<style lang="scss" scoped>
-  .header__container {
-    margin: 1rem 0;
-  }
-</style>

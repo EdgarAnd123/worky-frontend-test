@@ -1,5 +1,7 @@
 import GiphyApi from "@/services/GiphyApi"
 
+const ERROR_MESSAGE = 'Hubo un error al traer los datos. Intente nuevamente';
+
 export default {
   async getTrendingGifs() {
     try {
@@ -9,7 +11,7 @@ export default {
     } catch(error) {
       console.log(error);
 
-      return 'Hubo un error al traer los datos. Intente nuevamente';
+      return ERROR_MESSAGE;
     }
   },
 
@@ -21,7 +23,19 @@ export default {
     } catch(error) {
       console.log(error);
       
-      return 'Hubo un error al traer los datos. Intente nuevamente';
+      return ERROR_MESSAGE;
+    }
+  },
+
+  async searchGifbyId(idParam) {
+    try {
+      const { data: { data } } = await GiphyApi.getGifById(idParam);
+
+      return data;
+    } catch(error) {
+      console.log(error);
+      
+      return ERROR_MESSAGE;
     }
   }
 }
