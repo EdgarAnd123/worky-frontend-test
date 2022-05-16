@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GIPHY_API, API_KEY } from "@/constants"
+import { GIPHY_API, API_KEY } from "@/env_vars"
 
 export default {
   getGifsByTrending() {
@@ -7,7 +7,7 @@ export default {
   },
 
   getGifsBySearch(searchParam) {
-    return axios.get(`http://${GIPHY_API}/search?api_key=${API_KEY}&q=${searchParam}&limit=5`)
+    return axios.get(`http://${GIPHY_API}/search?api_key=${API_KEY}&q=${searchParam}&limit=10`)
   },
 
   getGifById(id) {

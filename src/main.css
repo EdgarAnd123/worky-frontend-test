@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@500;800&display=swap');
+
 
 @layer base {
   * {
@@ -16,7 +17,7 @@
     background-color: #000;
     margin: 0 auto;
     max-width: 1000px;
-    min-height: 100vh;
+    min-height: calc(100vh - 40px);
   }
 
   h4 {
@@ -31,6 +32,10 @@
     grid-auto-rows: 150px;
     @apply gap-4;
     @apply place-content-center;
+  }
+
+  .customs {
+    display: none;
   }
 }
 

@@ -24,10 +24,6 @@
       gifHeight: Number
     },
 
-    created() {
-      console.log(this.gif);
-    },
-
     computed: {
       giphyDimensions() {
         return {
@@ -76,7 +72,6 @@
       width: var(--gifWidth);
       height: var(--gifHeight);
       border-radius: .4rem;
-      // object-fit: contain;
     }
 
     .giphy__overlay_info {

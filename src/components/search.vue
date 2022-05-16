@@ -4,8 +4,6 @@
 </template>
 
 <script>
-  import GiphyService from "@/services/GiphyService"
-
   export default {
     name: 'searchComponent',
     data() {
@@ -14,25 +12,16 @@
         timeOut: null
       }
     },
+    
     methods: {
       searchForGifs() {
-        // this.isLoading = true;
-
-        GiphyService.searchForGifs(this.searchInput).then(
-          (gifs) => {
-            this.isLoading = false;
-            this.$emit('searchedGifs', { gifs, searchTerm: this.searchInput });
-
-            this.saveSearchInLocalStorage();
-          },
-          (error) => {
-            this.isLoading = false;
-            console.log(error);
-          }
-        )
+        this.$root.$store.dispatch("fetchGifs", this.searchInput);
+        
+        this.$emit('searchedGifs', this.searchInput);
+        this.saveSearch();
       },
 
-      saveSearchInLocalStorage() {
+      saveSearch() {
         const searchesPerformed = localStorage.getItem('my-searches');
 
         if(searchesPerformed) {

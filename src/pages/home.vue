@@ -1,80 +1,71 @@
 <template>
-  <div>
-    <search-element @searchedGifs="fetchSearchedGifs" />
-    <div v-if="isLoading">
-      <p> Loading... </p>
+  <div class="animate__animated animate__fadeIn">
+    <search-element @searchedGifs="getSearchedGifs" />
+    <Loading :show="isLoading" />
+    <div class="trending_header__container animate__animated animate__lightSpeedInLeft">
+      <trending-icon />
+      <h4 class="py-4"> Trending </h4>
     </div>
-    <div v-else>
-      <div class="trending_header__container">
-        <trending-icon />
-        <h4 class="py-4"> Trending </h4>
-      </div>
-        <list-component :gifs="trendingGifs" :gridType="'grid'" />
-        <!-- <div class="mb-4" v-for="(gif, index) in trendingGifs" :key="index">
-          <giphy-card :gifUrl="gif.images" :gifHeight="150" :giphyCardClass="{ 'image__object_fit-contain': true }" />
-        </div> -->
 
-      <template v-if="searchedGifs.length">
-        <h2 class="py-4"> {{ searchTerm }} </h2>
-        <list-component :gifs="searchedGifs" :gridType="'masonry'" />
-  
-        <!-- <div class="masonry sm:masonry-sm md:masonry-md">
-          <div class="mb-4" v-for="(gif, index) in searchedGifs" :key="index">
-            <giphy-card :gifUrl="gif.images" :gifWidth="248" />
-          </div>
-        </div> -->
-      </template>
-    </div>    
+    <div class="mb-4 trendingGrid xs:trendingGrid-xs sm:trendingGrid-sm md:trendingGrid-md">
+      <giphy-card :gif="gif" v-for="(gif, index) in trendingGifs" :key="index" />
+    </div>
+
+    <template v-if="searchedGifs.length">
+      <h2 class="py-4"> {{ searchTerm }} </h2>
+
+      <div class="masonry sm:masonry-sm md:masonry-md">
+        <div class="mb-4" v-for="(gif, index) in searchedGifs" :key="index">
+          <giphy-card :gif="gif" />
+        </div>
+      </div>
+    </template>  
   </div>
 </template>
 
 <script>
   import searchComponent from "@/components/search.vue"
-  import listComponent from "@/components/list.vue"
-  import TrendingIcon from "@/components/TrendingIcon.vue"
+  import giphyCardComponent from "@/components/giphy-card.vue"
+  import loadingComponent from "@/components/loading.vue"
 
-  import GiphyService from "@/services/GiphyService"
+  import TrendingIcon from "@/components/TrendingIcon.vue"
 
   export default {
     name: 'homeComponent',
     components: {
       'search-element': searchComponent,
-      'list-component': listComponent,
-      'trending-icon': TrendingIcon
+      'giphy-card': giphyCardComponent,
+      'trending-icon': TrendingIcon,
+      'Loading': loadingComponent
     },
 
     data(){
       return {
-        searchTerm: '',
-        trendingGifs: [],
-        searchedGifs: [],
-        isLoading: false
+        searchTerm: ''
       }
     },
 
-    created() {
-      this.loadTrendingGifs();
+    beforeRouteEnter(to, from, next) {
+      next((vue) => {
+        vue.$root.$store.dispatch("fetchTrendingGifs");
+      })
     },
-    
-    methods: {
-      loadTrendingGifs() {
-        this.isLoading = true;
 
-        GiphyService.getTrendingGifs().then(
-          (gifs) => {
-            this.trendingGifs = gifs;
-            this.isLoading = false;
-          },
-          (error) => {
-            this.isLoading = false;
-            console.log(error);
-          }
-        )
+    computed: {
+      trendingGifs() {
+        return this.$root.$store.getters.getTrendingGifs;
       },
+      searchedGifs() {
+        return this.$root.$store.getters.getGifs;
+      },
+      isLoading() {
+        return this.$root.$store.getters.getLoading;
+      }
+    },
 
-      fetchSearchedGifs( { gifs, searchTerm }) {
+    methods: {
+      getSearchedGifs(searchTerm) {
         this.searchTerm = searchTerm;
-        this.searchedGifs = gifs;
       }
     }
   }

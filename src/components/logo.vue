@@ -1,5 +1,6 @@
 <template>
   <svg
+   class="animate__animated animate__rollIn"
     height="40"
     width="180"
     xmlns="http://www.w3.org/2000/svg"
