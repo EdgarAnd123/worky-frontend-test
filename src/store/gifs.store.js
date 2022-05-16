@@ -67,6 +67,10 @@ export default {
         );
       },
 
+      resetGifs( { commit }) {
+        commit('SET_RESET_GIFS');
+      },
+
       setLoading( { commit }, status) {
           commit('SET_LOADING', status);
       },
@@ -83,6 +87,10 @@ export default {
 
     SET_GIF(state, gif) {
       state.gif = gif;
+    },
+
+    SET_RESET_GIFS(state) {
+      state.gifs = [];
     },
 
     SET_LOADING(state, status) {

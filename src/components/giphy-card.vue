@@ -1,9 +1,9 @@
 <template>
     <div class="giphy__container">
+      <font-awesome-icon class="giphy__favorites" icon="fa-solid fa-heart" @click="saveToFavorites"/>
       <router-link :to="{ name: 'gifDetail', params: { id: gif.id} }">
         <img  :src="rendering.url" 
               :style="giphyDimensions">
-        <font-awesome-icon class="giphy__favorites" icon="fa-solid fa-heart" @click="saveToFavorites"/>
         <div v-if="author" class="giphy__overlay_info">
           <img :src="author.avatar_url" :alt="author.display_name">
           <p class="giphy__user_name"> {{ gif.user.display_name }} </p>

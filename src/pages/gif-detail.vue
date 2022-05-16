@@ -3,7 +3,7 @@
     <Loading :show="isLoading" />
     <div v-if="gif.images" >
       <div class="gif__detail_container">
-        <div class="gif__detail_info animate__animated animate__bounceInLeft">
+        <div v-if="author" class="gif__detail_info animate__animated animate__bounceInLeft">
           <div class="gif__detail_info_author">
             <img :src="author.avatar_url" :alt="author.display_name">
             <div>
@@ -67,6 +67,11 @@
         next( (vue) => { 
             vue.$root.$store.dispatch("fetchGif", vue.$route.params.id);
         })
+      },
+
+      beforeRouteLeave(to, from, next) {
+        this.$root.$store.dispatch("resetGifs");
+        next();
       },
 
       computed: {

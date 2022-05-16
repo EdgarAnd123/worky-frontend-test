@@ -1,6 +1,6 @@
 <template>
   <router-link to="/">
-    <Logo class="my-4"/>
+    <Logo class="my-4" />
   </router-link>
 </template>
 
@@ -11,7 +11,7 @@
     name: 'headerComponent',
     components: {
       'Logo': LogoComponent
-    },
+    }
   };
 
 </script>

@@ -7,7 +7,7 @@ export default {
   },
 
   getGifsBySearch(searchParam) {
-    return axios.get(`http://${GIPHY_API}/search?api_key=${API_KEY}&q=${searchParam}&limit=10`)
+    return axios.get(`http://${GIPHY_API}/search?api_key=${API_KEY}&q=${searchParam}&limit=20`)
   },
 
   getGifById(id) {

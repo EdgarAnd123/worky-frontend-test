@@ -18,10 +18,10 @@
         this.$root.$store.dispatch("fetchGifs", this.searchInput);
         
         this.$emit('searchedGifs', this.searchInput);
-        this.saveSearch();
+        this.saveToMySearches();
       },
 
-      saveSearch() {
+      saveToMySearches() {
         const searchesPerformed = localStorage.getItem('my-searches');
 
         if(searchesPerformed) {
